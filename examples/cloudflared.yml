@@ -1,0 +1,13 @@
+# Optional: expose bitbucket-mcp through a Cloudflare Tunnel.
+# Create the tunnel and its DNS route first:
+#   cloudflared tunnel create <TUNNEL-NAME>
+#   cloudflared tunnel route dns <TUNNEL-NAME> <MCP-HOSTNAME>
+# then set BB_MCP_PUBLIC_HOSTS=<MCP-HOSTNAME> and restart bitbucket-mcp.
+
+tunnel: <TUNNEL-ID>
+credentials-file: <HOME>/.cloudflared/<TUNNEL-ID>.json
+
+ingress:
+  - hostname: <MCP-HOSTNAME>
+    service: http://127.0.0.1:8765
+  - service: http_status:404

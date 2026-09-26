@@ -1,0 +1,25 @@
+# systemd user unit for bitbucket-mcp.
+#   cp examples/bitbucket-mcp.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload && systemctl --user enable --now bitbucket-mcp
+# Replace <PATH-TO-BB> with the output of `command -v bb`
+# (for a pipx install that is usually %h/.local/bin/bb).
+
+[Unit]
+Description=Bitbucket Cloud MCP server (bb mcp-serve)
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+EnvironmentFile=-%h/.config/bb/bitbucket-mcp.env
+ExecStart=<PATH-TO-BB> mcp-serve
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=512M
+
+[Install]
+WantedBy=default.target

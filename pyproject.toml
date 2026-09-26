@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bitbucket-mcp"
+version = "1.1.0"
+description = "MCP server for Bitbucket Cloud: repos, pull requests, branches, pipelines, for Claude and other AI agents"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.8"
+# Standard library only: no runtime dependencies.
+dependencies = []
+keywords = ["mcp", "mcp-server", "model-context-protocol", "bitbucket", "bitbucket-cloud", "claude", "ai-agents"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+
+[project.scripts]
+bb = "bitbucket_mcp.bb:run"
+bb-auth = "bitbucket_mcp.bb_auth:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
